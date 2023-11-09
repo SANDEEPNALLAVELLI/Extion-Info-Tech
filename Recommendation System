@@ -1,0 +1,25 @@
+import pandas as pd
+
+# Creating sample data
+data = {
+    'user1': {'item1': 3, 'item2': 4, 'item3': 4, 'item4': 1},
+    'user2': {'item1': 4, 'item2': 3, 'item3': 5, 'item4': 2},
+    'user3': {'item1': 3, 'item2': 4, 'item3': 5, 'item4': 1},
+    'user4': {'item1': 1, 'item2': 5, 'item3': 4, 'item4': 4},
+    'user5': {'item1': 1, 'item2': 2, 'item3': 3, 'item4': 4}
+}
+
+# Creating a DataFrame from the datas
+df = pd.DataFrame(data)
+
+# Calculating the mean for each item
+item_means = df.mean(axis=1)
+
+# Recommending an item for a specific user (user5 in this case)
+user = 'user5'
+recommendations = df.drop(user, axis=1).mul(df[user], axis=0).sum(axis=1) / df.drop(user, axis=1).sum(axis=1)
+
+# Sorting the recommendations and displaying the top recommended item
+top_recommendation = recommendations.sort_values(ascending=False).index[0]
+
+print(f"The top recommended item for {user} is {top_recommendation}.")
