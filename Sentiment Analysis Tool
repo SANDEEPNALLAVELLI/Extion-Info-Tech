@@ -1,0 +1,17 @@
+import nltk
+from nltk.sentiment import SentimentIntensityAnalyzer
+
+nltk.download('vader_lexicon')
+
+# Initialize the VADER sentiment analyzer
+sid = SentimentIntensityAnalyzer()
+
+# Sample text for analysis
+sample_text = "I love using this sentiment analysis tool in Python. It works great!"
+
+# Analyze the sentiment of the text
+scores = sid.polarity_scores(sample_text)
+
+# Print the sentiment scores
+for key in scores:
+    print('{0}: {1}, '.format(key, scores[key]), end='')
